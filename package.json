@@ -1,0 +1,17 @@
+{
+  "name": "audio_downloader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --experimental-modules index.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Aplicación CLI para descargar audio de Youtube",
+  "dependencies": {
+    "inquirer": "^9.1.5",
+    "yt-dlp-exec": "^1.0.0"
+  }
+}
