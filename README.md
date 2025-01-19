@@ -10,3 +10,10 @@ Aplicación de consola para descargar audios de yt
 ## Tecnologías
 - Nodejs
 - ytdlp 
+
+## Notas
+- Requiere que el ejecutable generado por pkg este en la misma carpeta que bin ya que ahi se encuentra el archivo yt-dlp.exe
+ 
+        |- /Ejecutable.exe
+        |- /bin
+        |--  /yt-dlp.exe

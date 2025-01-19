@@ -1,36 +1,40 @@
-import ytdlp from "yt-dlp-exec";
-import fs from "fs";
+//const ytdlp = require("yt-dlp-exec");
+const fs = require("fs");
+const path = require("path");
+const {exec} = require("child_process");
 
-export async function downloadAudio(url, audioFormat = "mp3") {
+
+async function downloadAudio(url, audioFormat = "mp3") {
   try {
     const outputDir = "downloads";
-
     // Crea el directorio de descargas si no existe
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir);
     }
 
+    const ytDlpPath = path.join("bin", "yt-dlp.exe");
     const output = `${outputDir}/%(title)s.${audioFormat}`;
+    const command = `${ytDlpPath} ${url} --output ${output} --format bestaudio --postprocessor-args -x --postprocessor-args --audio-format --postprocessor-args ${audioFormat}`;
+
     console.log(`Descargando audio desde ${url}...`);
 
-    /* // Listar los formatos disponibles
-    const formats = await ytdlp(url, { listFormats: true });
-    console.log("Formatos disponibles:", formats);
+    console.log(`Ejecutando comando: ${command}`);
 
-    // Seleccionar un formato disponible
-    const format = formats.includes("bestaudio") ? "bestaudio" : formats[0]; */
-
-    await ytdlp(url, {
-      output,
-      format: "bestaudio",
-      postprocessorArgs: ["-x", "--audio-format", audioFormat],
-      
+    return new Promise((resolve, reject) => {
+      exec(command, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error al descargar el audio: ${stderr}`);
+          reject(error);
+        } else {
+          console.log(`Descarga completada: ${stdout}`);
+          resolve(stdout);
+        }
+      });
     });
 
-    console.log(`Descarga de audio completada: ${output}`);
   } catch (error) {
     console.error("Error al descargar el audio:", error.message);
   }
 }
 
-
+module.exports = { downloadAudio };

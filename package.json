@@ -5,13 +5,22 @@
   "scripts": {
     "start": "node --experimental-modules index.js"
   },
-  "type": "module",
+  "type": "commonjs",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "Aplicación CLI para descargar audio de Youtube",
+  "bin": "./index.js",
+  "pkg": {
+    "targets": [
+      "node16-win-x64"
+    ]
+  },
   "dependencies": {
-    "inquirer": "^9.1.5",
+    "inquirer": "^8.2.6",
     "yt-dlp-exec": "^1.0.0"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
   }
 }
